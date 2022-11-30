@@ -1,20 +1,48 @@
 
 class Deck(object):
-    def __init__(self):
-        self.player = []
-        self.tavern = []
-        self.cardList = None
-        self.card = None
-        self.card = None
-        
-    # Start of user code -> properties/constructors for Deck class
+    def __init__(self, isEmpty):
+        if isEmpty:
+            self.cardList = []
+        else:
+            self.cardList = Deck.initAllCard()
 
-    # End of user code
     def doAllEffect(self):
-        # Start of user code protected zone for doAllEffect function body
-        raise NotImplementedError
-        # End of user code	
-    # Start of user code -> methods for Deck class
+        for card in self.cardList:
+            card.doEffect()
 
-    # End of user code
+    def doAllEffectOfGamePhase(self, gamePhase):
+        for card in self.cardList:
+            if card.gamePhase == gamePhase:
+                card.doEffect()
 
+    def addCard(self, card):
+        self.cardList.append(card)
+        return card
+
+    def findCardByName(self, name):
+        for card in self.cardList:
+            if card.name == name:
+                return card
+        return None
+
+    def findCard(self, cardToSearch):
+        for card in self.cardList:
+            if card == cardToSearch:
+                return card
+        return None
+
+    def removeCard(self,card):
+        cardTemp = self.findCard(card)
+        if cardTemp:
+            self.cardList.remove(card)
+        return cardTemp
+
+    def changeCardToOtherDeck(self, card, deck):
+        tempCard = self.removeCard(card)
+        if tempCard:
+            deck.addCard(tempCard)
+        return tempCard
+
+    @staticmethod
+    def initAllCard():
+        return []
