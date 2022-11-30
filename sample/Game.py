@@ -1,4 +1,4 @@
-
+import random
 class Game(object):
     def __init__(self, maxFieldCard, player1, player2):
         self.maxFieldCard = maxFieldCard
@@ -8,6 +8,8 @@ class Game(object):
         self.player2 = player2
         
     # Start of user code -> properties/constructors for Game class
+    def startGame(self):
+
 
     # End of user code
     def doEffect(self):
@@ -22,13 +24,20 @@ class Game(object):
         # Start of user code protected zone for fight function body
         raise NotImplementedError
         # End of user code	
-    def chooseBeginer(self):
+    def chooseBeginer(self, player1, player2):
         # Start of user code protected zone for chooseBeginer function body
-        raise NotImplementedError
+        playerList = [player1, player2]
+        return random.choice(playerList)
         # End of user code	
-    def chooseTarget(self):
+    def chooseTarget(self, card, opponentField):
         # Start of user code protected zone for chooseTarget function body
-        raise NotImplementedError
+        possibleTarget = []
+        for iCard in opponentField:
+            if iCard.healthPoint > 0:
+                possibleTarget.append(iCard)
+        return random.choice(possibleTarget)
+
+
         # End of user code	
     # Start of user code -> methods for Game class
 
