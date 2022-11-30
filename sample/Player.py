@@ -1,49 +1,48 @@
-
+import sample.Deck as Deck
 class Player(object):
     def __init__(self):
         self.turnCounter = 0
         self.tavernLevel = 0
         self.gold = 0
-        self.handCardList = None
-        self.fieldCradList = None
+        self.handCardList = Deck.Deck(True)
+        self.fieldCardList = Deck.Deck(True)
         self.healthPoint = 20
         
     # Start of user code -> properties/constructors for Player class
 
     # End of user code
-    def buyCard(self):
+    def buyCard(self, card, tavern):
         # Start of user code protected zone for buyCard function body
         if self.gold >= 3:
             self.gold -= 3
-        #WORK IN PROGESS
+            tavern.listCardShop.changeCardToOtherDeck(card, self.handCardList)
+        return None
         # End of user code	
     def levelUp(self, tavern):
         # Start of user code protected zone for levelUp function body
         levelUpCost = 5 - self.turnCounter
-        if self.tavernLevel > tavern.maxLevel and self.gold >= 5 - levelUpCost:
+        if self.tavernLevel < tavern.maxLevel and self.gold >= 5 - levelUpCost:
             self.tavernLevel += 1
-        else:
-            return None
+            self.gold -= levelUpCost
+            self.turnCounter = 0
+        return None
         # End of user code	
     def setGold(self, game):
         # Start of user code protected zone for levelUp function body
         self.gold = max(game.turnNumber + 2, 10)
         # End of user code	
-    def sellCard(self):
+    def sellCard(self, card, tavern):
         # Start of user code protected zone for sellCard function body
-        raise NotImplementedError
+        self.gold += 1
+        self.handCardList.changeCardToOtherDeck(card, tavern.deck)
         # End of user code	
-    def playCard(self):
+    def playCard(self, card):
         # Start of user code protected zone for playCard function body
-        raise NotImplementedError
+            self.fieldCardList.changeCardToOtherDeck(card, self.handCardList)
         # End of user code	
     # Start of user code -> methods for Player class
     def monsterNumber(self):
-        monsterNumber = 0
-        for i in self.fieldCradList:
-            if self.fieldCradList[i].healthPoint > 0:
-                monsterNumber += 1
-        return monsterNumber
+        return len(self.fieldCardList.cardList)
 
     # End of user code
 
