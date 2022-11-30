@@ -13,10 +13,6 @@ class Game(object):
         
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
-        #Initiallisation
-        # Phase achat
-        # Phase posage
-        # Phase combat
         while self.playerHuman.healthPoint > 0 and self.playerIA.healthPoint > 0:
             self.turnNumber += 1
             self.playerHuman.setGold(self)
@@ -45,13 +41,56 @@ class Game(object):
                     self.playerHuman.playCard()
                 if nextButton:
                     nextButtonNotPressed = False
+            #Phase fighting
+            self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
+            firstPlayer, secondPlayer = self.chooseOrder()
+            self.combatPhase(firstPlayer, secondPlayer)
+            self.playerIA.turnCounter += 1
+            self.playerHuman.turnCounter += 1
 
 
 
 
+    def combatPhase(self,firstPlayer,secondPlayer):
+        counterFirstPlayer = 0
+        counterSecondPlayer = 0
+        while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
+            # attaque du first player
+            if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
+                counterFirstPlayer = 0
 
+            firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList[counterFirstPlayer].attack(
+                self.chooseTarget(secondPlayer.fieldCardList))
+            if firstPlayerCardTemp.currentHealthPoint <= 0 :
+                firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
+            if secondPlayerCardTemp.currentHealthPoint <= 0:
+                firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
 
-    # End of user code
+            counterFirstPlayer += 1
+
+            # attaque du second player
+
+            if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
+                counterSecondPlayer = 0
+
+            secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
+                self.chooseTarget(firstPlayer.fieldCardList))
+            if firstPlayerCardTemp.currentHealthPoint <= 0:
+                firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
+            if secondPlayerCardTemp.currentHealthPoint <= 0:
+                firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
+
+            counterSecondPlayer += 1
+
+        for card in secondPlayer.fieldCardList:
+                firstPlayer.healthPoint -= card.level
+        for card in secondPlayer.fieldCardList:
+                secondPlayer.fieldCardList.changeCardToOtherDeck(card, secondPlayer.handCardList)
+        for card in firstPlayer.fieldCardList:
+                secondPlayer.healthPoint -= card.level
+        for card in firstPlayer.fieldCardList:
+                firstPlayer.fieldCardList.changeCardToOtherDeck(card, firstPlayer.handCardList)
+
     def doEffect(self):
         # Start of user code protected zone for doEffect function body
         raise NotImplementedError

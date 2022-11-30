@@ -18,4 +18,5 @@ class Card(object):
     def attack(self, targetCard):
         self.currentHealthPoint -= targetCard.attack
         targetCard.healthPoint -= self.attack
+        return self, targetCard
 

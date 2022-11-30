@@ -54,10 +54,10 @@ class Deck(object):
             self.cardList.remove(card)
         return cardTemp
 
-    def changeCardToOtherDeck(self, card, deck):
+    def changeCardToOtherDeck(self, card, deckDestination):
         tempCard = self.removeCard(card)
         if tempCard:
-            deck.addCard(tempCard)
+            deckDestination.addCard(tempCard)
         return tempCard
 
     @staticmethod
