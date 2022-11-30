@@ -30,6 +30,23 @@ class Deck(object):
             if card == cardToSearch:
                 return card
         return None
+    def findCardHigherLevel(self, cardList):
+        if len(cardList) == 0:
+            return None
+        cardLevelMax = cardList[0]
+        for card in cardList.cardList:
+            if card.level > cardLevelMax.level
+                cardLevelMax = card
+        return cardLevelMax
+
+    def findCardLowerLevel(self, cardList):
+        if len(cardList) == 0:
+            return None
+        cardLevelMin = cardList[0]
+        for card in cardList.cardList:
+            if card.level < cardLevelMin.level
+                cardLevelMin = card
+        return cardLevelMin
 
     def removeCard(self,card):
         cardTemp = self.findCard(card)

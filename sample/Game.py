@@ -1,17 +1,50 @@
 import random
+import sample.Player as Player
+import sample.Tavern as Tavern
+import sample.GAMEPHASE as GAMEPHASE
 class Game(object):
-    def __init__(self, maxFieldCard, player1, player2):
-        self.maxFieldCard = maxFieldCard
+    def __init__(self):
+        self.maxFieldCard = 4
         self.gamePhase = None
         self.turnNumber = 0
-        self.player1 = player1
-        self.player2 = player2
+        self.playerHuman = Player.Player()
+        self.playerIA = Player.Player()
+        self.tavern = Tavern.Tavern()
         
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
-        while self.player1 > 0 and self.player2 > 0:
+        #Initiallisation
+        # Phase achat
+        # Phase posage
+        # Phase combat
+        while self.playerHuman.healthPoint > 0 and self.playerIA.healthPoint > 0:
             self.turnNumber += 1
-            # Phase de tavern
+            self.playerHuman.setGold(self)
+            self.playerIA.setGold(self)
+            self.tavern.refreshTavernHuman(self.playerHuman)
+            self.tavern.refreshTavernIA(self.playerIA)
+            #Phase tavern
+            self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
+            self.playerIA.playTavernPhase(self.tavern)
+            nextButtonNotPressed = True
+            while nextButtonNotPressed:
+                if refreshTavern:
+                    self.tavern.refreshTavernHuman(self.playerHuman)
+                if sellCard:
+                    self.playerHuman.sellCard()
+                if buyCard:
+                    self.playerHuman.buyCard()
+                if nextButton:
+                    nextButtonNotPressed = False
+            self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
+            self.playerIA.playSettingPhase(self.tavern)
+            nextButtonNotPressed = True
+            while nextButtonNotPressed:
+                if egr:
+
+
+
+
 
     # End of user code
     def doEffect(self):
@@ -25,17 +58,17 @@ class Game(object):
     def fight(self):
         # Start of user code protected zone for fight function body
         firstPlayer, secondPlayer = self.chooseOrder()
-        while self.player1.monsterNumber > 0 and self.player2.monsterNumber > 0:
+        while self.playerHuman.monsterNumber > 0 and self.playerIA.monsterNumber > 0:
             firstPlayer.fieldCardList[1].attack(self.chooseTarget(secondPlayer))
         # End of user code	
     def chooseOrder(self):
         # Start of user code protected zone for chooseBeginer function body
         if random.randint(1, 2) == 1:
-            firstPlayer = self.player1
-            secondPlayer = self.player2
+            firstPlayer = self.playerHuman
+            secondPlayer = self.playerIA
         else:
-            firstPlayer = self.player2
-            secondPlayer = self.player1
+            firstPlayer = self.playerIA
+            secondPlayer = self.playerHuman
         return firstPlayer, secondPlayer
         # End of user code	
     def chooseTarget(self, opponentField):
