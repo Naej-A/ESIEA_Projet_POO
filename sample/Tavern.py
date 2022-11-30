@@ -1,8 +1,8 @@
 
 class Tavern(object):
-    def __init__(self):
+    def __init__(self, deck):
         self.maxLevel = 4
-        self.deck = None
+        self.deck = deck
         self.listCardShop = None
         
     # Start of user code -> properties/constructors for Tavern class
