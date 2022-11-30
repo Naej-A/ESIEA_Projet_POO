@@ -24,12 +24,13 @@ class Game(object):
         # End of user code	
     def fight(self):
         # Start of user code protected zone for fight function body
-        firstPlayer, secondPlayer = self.chooseBeginer()
-        firstPlayer.fieldCardList[1].attack(self.chooseTarget())
+        firstPlayer, secondPlayer = self.chooseOrder()
+        while self.player1.monsterNumber > 0 and self.player2.monsterNumber > 0:
+            firstPlayer.fieldCardList[1].attack(self.chooseTarget(secondPlayer))
         # End of user code	
-    def chooseBeginer(self):
+    def chooseOrder(self):
         # Start of user code protected zone for chooseBeginer function body
-        if random.randint(1,2) == 1:
+        if random.randint(1, 2) == 1:
             firstPlayer = self.player1
             secondPlayer = self.player2
         else:

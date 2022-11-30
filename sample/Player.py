@@ -38,6 +38,12 @@ class Player(object):
         raise NotImplementedError
         # End of user code	
     # Start of user code -> methods for Player class
+    def monsterNumber(self):
+        monsterNumber = 0
+        for i in self.fieldCradList:
+            if self.fieldCradList[i].healthPoint > 0:
+                monsterNumber += 1
+        return monsterNumber
 
     # End of user code
 
