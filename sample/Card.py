@@ -19,9 +19,10 @@ class Card(object):
         # Start of user code protected zone for doEffect function body
         raise NotImplementedError
         # End of user code	
-    def attack(self):
+    def attack(self, target):
         # Start of user code protected zone for attack function body
-        raise NotImplementedError
+        self.healthPoint -= target.attack
+        target.healthPoint -= self.attack
         # End of user code	
     # Start of user code -> methods for Card class
 
