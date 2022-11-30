@@ -1,13 +1,11 @@
 
 class Game(object):
-    def __init__(self):
-        self.maxFieldCard = 0
-        self.player1 = None
+    def __init__(self, maxFieldCard, player1, player2):
+        self.maxFieldCard = maxFieldCard
         self.gamePhase = None
         self.turnNumber = 0
-        self.player2 = None
-        self.attribute = 
-        self.player = None
+        self.player1 = player1
+        self.player2 = player2
         
     # Start of user code -> properties/constructors for Game class
 

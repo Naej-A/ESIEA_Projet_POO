@@ -3,13 +3,10 @@ class Player(object):
     def __init__(self):
         self.turnCounter = 0
         self.tavernLevel = 0
-        self.tavern = []
-        self.game = []
         self.gold = 0
         self.handCardList = None
-        self.deck = None
         self.fieldCradList = None
-        self.healthPoint = 0
+        self.healthPoint = 20
         
     # Start of user code -> properties/constructors for Player class
 
