@@ -9,7 +9,9 @@ class Game(object):
         
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
-
+        while self.player1 > 0 and self.player2 > 0:
+            self.turnNumber += 1
+            # Phase de tavern
 
     # End of user code
     def doEffect(self):
@@ -22,14 +24,20 @@ class Game(object):
         # End of user code	
     def fight(self):
         # Start of user code protected zone for fight function body
-        raise NotImplementedError
+        firstPlayer, secondPlayer = self.chooseBeginer()
+        firstPlayer.fieldCardList[1].attack(self.chooseTarget())
         # End of user code	
-    def chooseBeginer(self, player1, player2):
+    def chooseBeginer(self):
         # Start of user code protected zone for chooseBeginer function body
-        playerList = [player1, player2]
-        return random.choice(playerList)
+        if random.randint(1,2) == 1:
+            firstPlayer = self.player1
+            secondPlayer = self.player2
+        else:
+            firstPlayer = self.player2
+            secondPlayer = self.player1
+        return firstPlayer, secondPlayer
         # End of user code	
-    def chooseTarget(self, card, opponentField):
+    def chooseTarget(self, opponentField):
         # Start of user code protected zone for chooseTarget function body
         possibleTarget = []
         for iCard in opponentField:
