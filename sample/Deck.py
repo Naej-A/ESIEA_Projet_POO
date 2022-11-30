@@ -35,7 +35,7 @@ class Deck(object):
             return None
         cardLevelMax = cardList[0]
         for card in cardList.cardList:
-            if card.level > cardLevelMax.level
+            if card.level > cardLevelMax.level:
                 cardLevelMax = card
         return cardLevelMax
 
@@ -44,7 +44,7 @@ class Deck(object):
             return None
         cardLevelMin = cardList[0]
         for card in cardList.cardList:
-            if card.level < cardLevelMin.level
+            if card.level < cardLevelMin.level:
                 cardLevelMin = card
         return cardLevelMin
 

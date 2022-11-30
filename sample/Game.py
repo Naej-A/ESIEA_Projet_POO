@@ -36,11 +36,16 @@ class Game(object):
                     self.playerHuman.buyCard()
                 if nextButton:
                     nextButtonNotPressed = False
+            #Phase setting
             self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
-            self.playerIA.playSettingPhase(self.tavern)
+            self.playerIA.playSettingPhase(self)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
-                if egr:
+                if playCard:
+                    self.playerHuman.playCard()
+                if nextButton:
+                    nextButtonNotPressed = False
+
 
 
 

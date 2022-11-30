@@ -37,9 +37,11 @@ class Player(object):
         self.gold += 1
         self.handCardList.changeCardToOtherDeck(card, tavern.deck)
         # End of user code	
-    def playCard(self, card):
+    def playCard(self, card, game):
         # Start of user code protected zone for playCard function body
+        if len(self.fieldCardList.cardList) < game.maxFieldCard:
             self.fieldCardList.changeCardToOtherDeck(card, self.handCardList)
+        return None
         # End of user code	
     # Start of user code -> methods for Player class
     def monsterNumber(self):
@@ -63,5 +65,12 @@ class Player(object):
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
         self.buyCard(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+
+    def playSettingPhase(self, game):
+        for i in range(game.maxFieldCard):
+            self.playCard(self.handCardList.findCardHigherLevel(self.handCardList))
+
+
+
 
 
