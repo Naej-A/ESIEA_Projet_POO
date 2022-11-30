@@ -8,7 +8,6 @@ class Player(object):
         self.gold = 0
         self.handCardList = None
         self.deck = None
-        self.attribute = 
         self.fieldCradList = None
         self.healthPoint = 0
         
@@ -17,15 +16,21 @@ class Player(object):
     # End of user code
     def buyCard(self):
         # Start of user code protected zone for buyCard function body
-        raise NotImplementedError
+        if self.gold >= 3:
+            self.gold -= 3
+        #WORK IN PROGESS
         # End of user code	
-    def levelUp(self):
+    def levelUp(self, tavern):
         # Start of user code protected zone for levelUp function body
-        raise NotImplementedError
+        levelUpCost = 5 - self.turnCounter
+        if self.tavernLevel > tavern.maxLevel and self.gold >= 5 - levelUpCost:
+            self.tavernLevel += 1
+        else:
+            return None
         # End of user code	
-    def setGold(self):
-        # Start of user code protected zone for setGold function body
-        raise NotImplementedError
+    def setGold(self, game):
+        # Start of user code protected zone for levelUp function body
+        self.gold = max(game.turnNumber + 2, 10)
         # End of user code	
     def sellCard(self):
         # Start of user code protected zone for sellCard function body

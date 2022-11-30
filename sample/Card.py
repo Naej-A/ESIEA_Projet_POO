@@ -1,29 +1,21 @@
 
 class Card(object):
-    def __init__(self):
-        self.deck = []
-        self.deck = []
-        self.attack = 0
-        self.gamePhase = None
-        self.name = ""
-        self.race = None
-        self.level = 0
-        self.currentHealthPoint = 0
-        self.healthPoint = 0
-        self.description = ""
+    def __init__(self, name, race, gamePhase, level, attack, maxHealthPoint, description):
+        self.name = name
+        self.race = race
+        self.gamePhase = gamePhase
+        self.level = level
+        self.attack = attack
+        self.maxHealthPoint = maxHealthPoint
+        self.currentHealthPoint = maxHealthPoint
+        self.description = description
         
     # Start of user code -> properties/constructors for Card class
 
     # End of user code
     def doEffect(self):
-        # Start of user code protected zone for doEffect function body
-        raise NotImplementedError
-        # End of user code	
-    def attack(self):
-        # Start of user code protected zone for attack function body
-        raise NotImplementedError
-        # End of user code	
-    # Start of user code -> methods for Card class
-
-    # End of user code
+        return
+    def attack(self, targetCard):
+        self.currentHealthPoint -= targetCard.attack
+        targetCard.healthPoint -= self.attack
 
