@@ -9,6 +9,7 @@ class Button():
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y)
 		self.clicked = False
+		# self.card = card
 
 	def draw(self, surface):
 		action = False
