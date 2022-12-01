@@ -28,7 +28,6 @@ class Scene():
 
 
     def drawSceneTavern(self, game):
-
         return None
     def drawSceneSetting(self, game):
         return None

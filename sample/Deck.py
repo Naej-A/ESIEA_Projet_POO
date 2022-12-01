@@ -6,14 +6,9 @@ class Deck(object):
         else:
             self.cardList = Deck.initAllCard()
 
-    def doAllEffect(self):
+    def doAllEffect(self, game):
         for card in self.cardList:
-            card.doEffect()
-
-    def doAllEffectOfGamePhase(self, gamePhase):
-        for card in self.cardList:
-            if card.gamePhase == gamePhase:
-                card.doEffect()
+            card.doEffect(game, self)
 
     def addCard(self, card):
         self.cardList.append(card)
