@@ -9,14 +9,22 @@ class Card(object):
         self.maxHealthPoint = maxHealthPoint
         self.currentHealthPoint = maxHealthPoint
         self.description = description
+        self.hasShield = False
         
     # Start of user code -> properties/constructors for Card class
 
     # End of user code
-    def doEffect(self):
+    def doEffect(self, game, fieldCardList):
         return
     def attack(self, targetCard):
-        self.currentHealthPoint -= targetCard.attack
-        targetCard.healthPoint -= self.attack
+        if self.hasShield:
+            self.hasShield = False
+        else:
+            self.currentHealthPoint -= targetCard.attack
+        if targetCard.hasShield:
+            targetCard.hasShield = False
+        else:
+            targetCard.currentHealthPoint -= self.attack
         return self, targetCard
+
 

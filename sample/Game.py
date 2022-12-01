@@ -40,6 +40,8 @@ class Game(object):
                 if playCard:
                     self.playerHuman.playCard()
                 if nextButton:
+                    self.playerHuman.fieldCardList.doAllEffect(self)
+                    self.playerIA.fieldCardList.doAllEffect(self)
                     nextButtonNotPressed = False
             #Phase fighting
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
