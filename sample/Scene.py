@@ -1,6 +1,7 @@
 import sample.Deck as Deck
 import sample.GAMEPHASE as GAMEPHASE
-import  pygame
+import pygame
+import sample.button as button
 
 class Scene():
     SCREEN_HEIGHT = 700
@@ -15,10 +16,9 @@ class Scene():
 
 
     def printAllButton(self):
-        return None
-
+        start_img = pygame.image.load('start_btn.png').convert_alpha()
+        Refresh = button.Button(800, 300, start_img, 0.5)
     def chooseScene(self, game):
-        self.screen.blit(self.backGround, (0, -1))
         if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
             self.drawSceneTavern(game)
         elif game.gamePhase.name == GAMEPHASE.GAMEPHASE.SETTING.name:
@@ -28,10 +28,9 @@ class Scene():
 
 
     def drawSceneTavern(self, game):
-
-        return None
+        self.screen.blit(self.backGround, (0, -1))
     def drawSceneSetting(self, game):
-        return None
+        self.screen.blit(self.backGround, (0, -1))
     def drawSceneFight(self, game):
-        return None
+        self.screen.blit(self.backGround, (0, -1))
 
