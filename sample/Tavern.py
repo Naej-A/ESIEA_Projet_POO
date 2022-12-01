@@ -21,7 +21,7 @@ class Tavern(object):
             while counter < 3:
                 card = random.choice(self.deck.cardList)
                 if player.tavernLevel >= card.level:
-                    self.listCardShopHuman.changeCardToOtherDeck(card, self.deck)
+                    self.deck.changeCardToOtherDeck(card, self.listCardShopHuman)
                     counter += 1
         return None
     def refreshTavernIA(self, player):

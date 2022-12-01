@@ -1,4 +1,4 @@
-import Card
+import sample.cards.Card as Card
 
 class CardLifeSteal(Card):
 

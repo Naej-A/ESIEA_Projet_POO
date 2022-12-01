@@ -1,3 +1,9 @@
+import sample.cards.Card as Card
+# import sample.cards.CardShield as CardShield
+# import sample.cards.CardHPBoost as CardHPBoost
+# import sample.cards.CardLifeSteal as CardLifeSteal
+import sample.RACE as RACE
+import sample.GAMEPHASE as GAMEPHASE
 
 class Deck(object):
     def __init__(self, isEmpty):
@@ -25,11 +31,11 @@ class Deck(object):
             if card == cardToSearch:
                 return card
         return None
-    def findCardHigherLevel(self, cardList):
-        if len(cardList) == 0:
+    def findCardHigherLevel(self, deck):
+        if len(deck.cardList) == 0:
             return None
-        cardLevelMax = cardList[0]
-        for card in cardList.cardList:
+        cardLevelMax = deck.cardList[0]
+        for card in deck.cardList:
             if card.level > cardLevelMax.level:
                 cardLevelMax = card
         return cardLevelMax
@@ -57,4 +63,12 @@ class Deck(object):
 
     @staticmethod
     def initAllCard():
-        return []
+        # name, race, gamePhase, level, attack, maxHealthPoint, description
+        tempList = []
+        tempList.append(Card.Card("Michel", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 1, 2, 1, "Mi ingénieur mi bête, Michel est d'uné férocité métodique irréprochable"))
+        tempList.append(Card.Card("Michel", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 1, 2, 1, "Mi ingénieur mi bête, Michel est d'uné férocité métodique irréprochable"))
+        tempList.append(Card.Card("Michel", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 1, 2, 1, "Mi ingénieur mi bête, Michel est d'uné férocité métodique irréprochable"))
+        tempList.append(Card.Card("Michel", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 1, 2, 1, "Mi ingénieur mi bête, Michel est d'uné férocité métodique irréprochable"))
+        tempList.append(Card.Card("VéroNIQUE", RACE.RACE.Mech, GAMEPHASE.GAMEPHASE.NONE, 1, 1, 5, "NIQUE"))
+        tempList.append(Card.Card("VéroNIQUE", RACE.RACE.Mech, GAMEPHASE.GAMEPHASE.NONE, 1, 1, 5, "NIQUE"))
+        return tempList

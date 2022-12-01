@@ -1,5 +1,4 @@
-import Card
-
+import sample.cards.Card as Card
 class CardHPBoost(Card):
 
     def __init__(self, name, race, gamePhase, level, attack, maxHealthPoint, description, HPBoost):

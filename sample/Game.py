@@ -1,7 +1,12 @@
 import random
+import time
+
+import pygame
+
 import sample.Player as Player
 import sample.Tavern as Tavern
 import sample.GAMEPHASE as GAMEPHASE
+import sample.Scene as Scene
 class Game(object):
     def __init__(self):
         self.maxFieldCard = 4
@@ -10,6 +15,7 @@ class Game(object):
         self.playerHuman = Player.Player()
         self.playerIA = Player.Player()
         self.tavern = Tavern.Tavern()
+        self.scene = Scene.Scene()
         
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
@@ -23,25 +29,37 @@ class Game(object):
             self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
             self.playerIA.playTavernPhase(self.tavern)
             nextButtonNotPressed = True
+            self.scene.chooseScene(self)
             while nextButtonNotPressed:
-                if refreshTavern:
+                test = self.scene.findButtonByName("refresh")
+                if test.draw(self.scene.screen):
+                    # On en est la (bouton affiché mais ça crash encore wesh)
+                    print("knkj")
                     self.tavern.refreshTavernHuman(self.playerHuman)
-                if sellCard:
-                    self.playerHuman.sellCard()
-                if buyCard:
-                    self.playerHuman.buyCard()
-                if nextButton:
-                    nextButtonNotPressed = False
+
+                # for button in  self.scene.findAllButtonByName("sellCard"):
+                #     if button.draw(self.scene.screen):
+                #         print("bknjl,k")
+                #         self.playerHuman.sellCard(button.card, self.tavern)
+
+
+
+                # if buyCard:
+                #     self.playerHuman.buyCard()
+                # if nextButton:
+                #     nextButtonNotPressed = False
+                pygame.display.update()
+
             #Phase setting
             self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
             self.playerIA.playSettingPhase(self)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
-                if playCard:
-                    self.playerHuman.playCard()
-                if nextButton:
-                    self.playerHuman.fieldCardList.doAllEffect(self)
-                    self.playerIA.fieldCardList.doAllEffect(self)
+                # if playCard:
+                #     self.playerHuman.playCard()
+                # if nextButton:
+                #     self.playerHuman.fieldCardList.doAllEffect(self)
+                #     self.playerIA.fieldCardList.doAllEffect(self)
                     nextButtonNotPressed = False
             #Phase fighting
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT

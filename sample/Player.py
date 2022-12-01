@@ -4,7 +4,7 @@ import sample.Deck as Deck
 class Player(object):
     def __init__(self):
         self.turnCounter = 0
-        self.tavernLevel = 0
+        self.tavernLevel = 1
         self.gold = 0
         self.handCardList = Deck.Deck(True)
         self.fieldCardList = Deck.Deck(True)
@@ -12,11 +12,17 @@ class Player(object):
     # Start of user code -> properties/constructors for Player class
 
     # End of user code
-    def buyCard(self, card, tavern):
+    def buyCardHuman(self, card, tavern):
         # Start of user code protected zone for buyCard function body
         if self.gold >= 3 and len(self.handCardList.cardList) < 10:
             self.gold -= 3
-            tavern.listCardShop.changeCardToOtherDeck(card, self.handCardList)
+            tavern.listCardShopHuman.changeCardToOtherDeck(card, self.handCardList)
+        return None
+    def buyCardIA(self, card, tavern):
+        # Start of user code protected zone for buyCard function body
+        if self.gold >= 3 and len(self.handCardList.cardList) < 10:
+            self.gold -= 3
+            tavern.listCardShopIA.changeCardToOtherDeck(card, self.handCardList)
         return None
         # End of user code	
     def levelUpTavern(self, tavern):
@@ -30,7 +36,7 @@ class Player(object):
         # End of user code	
     def setGold(self, game):
         # Start of user code protected zone for levelUp function body
-        self.gold = max(game.turnNumber + 2, 10)
+        self.gold = min(game.turnNumber + 2, 10)
         # End of user code	
     def sellCard(self, card, tavern):
         # Start of user code protected zone for sellCard function body
@@ -52,19 +58,19 @@ class Player(object):
         if random.randint(0, 1):
             self.levelUpTavern(tavern)
         if len(self.handCardList.cardList) > 4:
-            self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
-        self.buyCard(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+            self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        if len(self.handCardList.cardList) > 4:
+            self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList), tavern)
+        tavern.refreshTavernIA(self)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
-        tavern.refreshTavernIA()
-        self.buyCard(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
-        self.buyCard(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        tavern.refreshTavernIA(self)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
-        tavern.refreshTavernIA()
-        if len(self.handCardList.cardList) > 4:
-            self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
-        self.buyCard(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
 
     def playSettingPhase(self, game):
         for i in range(game.maxFieldCard):

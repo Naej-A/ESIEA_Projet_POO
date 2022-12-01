@@ -12,8 +12,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Button Demo')
 
 #load button images
-start_img = pygame.image.load('start_btn.png').convert_alpha()
-exit_img = pygame.image.load('exit_btn.png').convert_alpha()
+start_img = pygame.image.load('../ressources/start_btn.png').convert_alpha()
+exit_img = pygame.image.load('../ressources/exit_btn.png').convert_alpha()
 # bg = pygame.image.load("../ressources/backGround.png").convert_alpha()
 
 
@@ -36,9 +36,9 @@ while run:
 		print('START')
 	if exit_button.draw(screen):
 		print('EXIT')
-	if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
-		if Refresh.draw(screen):
-			print('Refresh')
+	# if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
+	# 	if Refresh.draw(screen):
+	# 		print('Refresh')
 
 	#event handler
 	for event in pygame.event.get():
