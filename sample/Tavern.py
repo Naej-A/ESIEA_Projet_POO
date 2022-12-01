@@ -16,7 +16,8 @@ class Tavern(object):
         if player.gold >= 1:
             player.gold -= 1
             for card in self.listCardShopHuman.cardList:
-                self.deck.changeCardToOtherDeck(card, self.listCardShopHuman)
+                print(card)
+                self.listCardShopHuman.changeCardToOtherDeck(card, self.deck)
             counter = 0
             while counter < 3:
                 card = random.choice(self.deck.cardList)

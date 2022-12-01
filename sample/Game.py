@@ -19,6 +19,7 @@ class Game(object):
         
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
+        clock = pygame.time.Clock()
         while self.playerHuman.healthPoint > 0 and self.playerIA.healthPoint > 0:
             self.turnNumber += 1
             self.playerHuman.setGold(self)
@@ -33,14 +34,14 @@ class Game(object):
             while nextButtonNotPressed:
                 test = self.scene.findButtonByName("refresh")
                 if test.draw(self.scene.screen):
+                    print("refresh")
                     # On en est la (bouton affiché mais ça crash encore wesh)
-                    print("knkj")
                     self.tavern.refreshTavernHuman(self.playerHuman)
-
-                # for button in  self.scene.findAllButtonByName("sellCard"):
-                #     if button.draw(self.scene.screen):
-                #         print("bknjl,k")
-                #         self.playerHuman.sellCard(button.card, self.tavern)
+                for button in  self.scene.findAllButtonByName("sellCard"):
+                    if button.draw(self.scene.screen):
+                        print(button.card.name)
+                        print(button.card)
+                        self.playerHuman.sellCard(button.card, self.tavern)
 
 
 
@@ -49,6 +50,12 @@ class Game(object):
                 # if nextButton:
                 #     nextButtonNotPressed = False
                 pygame.display.update()
+                clock.tick(10)
+                for event in pygame.event.get():
+                    # quit game
+                    if event.type == pygame.QUIT:
+                        run = False
+                        pygame.quit()
 
             #Phase setting
             self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
