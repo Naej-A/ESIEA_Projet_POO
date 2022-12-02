@@ -8,7 +8,8 @@ class Scene():
     SCREEN_WIDTH = 1000
 
     pygame.font.init()
-    police = pygame.font.Font("sample/arial.ttf", 50)
+    policeGolds = pygame.font.Font("sample/arial.ttf", 50)
+    policeTavern = pygame.font.Font("sample/arial.ttf", 25)
 
     def __init__(self):
         self.listButton = []
@@ -43,6 +44,9 @@ class Scene():
         tempImg = pygame.image.load('ressources/refresh.png').convert_alpha()
         refresh = button.Button("refresh", 5.9 * Scene.SCREEN_WIDTH / 10, 2 * Scene.SCREEN_HEIGHT / 13, tempImg, 3, None)
         self.listButton.append(refresh)
+        tempImg = pygame.image.load('ressources/level_up.png').convert_alpha()
+        refresh = button.Button("levelUp", 4.1 * Scene.SCREEN_WIDTH / 10 - tempImg.get_width() * 2.5, 2 * Scene.SCREEN_HEIGHT / 13, tempImg, 3, None)
+        self.listButton.append(refresh)
         tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
         next = button.Button("nextPhase", 8 * Scene.SCREEN_WIDTH / 10, (Scene.SCREEN_HEIGHT - tempImg.get_height()) / 2, tempImg, 0.5, None)
         self.listButton.append(next)
@@ -59,8 +63,10 @@ class Scene():
             sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter, Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
             self.listButton.append(sellCard)
             counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
-        golds = Scene.police.render("Golds : " + str(game.playerHuman.gold), True, (255, 255, 0))
+        golds = Scene.policeGolds.render("Golds : " + str(game.playerHuman.gold), True, (255, 255, 0))
         self.screen.blit(golds, ((Scene.SCREEN_WIDTH - golds.get_width() + 40) / 2, Scene.SCREEN_HEIGHT / 100))
+        tavernLevel = Scene.policeTavern.render("LVL " + str(game.playerHuman.tavernLevel), True, (0, 200, 0))
+        self.screen.blit(tavernLevel, ((Scene.SCREEN_WIDTH - golds.get_width() * 1.27) / 2, Scene.SCREEN_HEIGHT / 8.8))
 
         # start_img = pygame.image.load('exit_btn.png').convert_alpha()
         # sellCard = button.Button("sellCard", 500, 300, start_img, 0.5)

@@ -41,6 +41,9 @@ class Game(object):
                 if self.scene.findButtonByName("refresh").draw(self.scene.screen):
                     print("refresh")
                     self.tavern.refreshTavernHuman(self.playerHuman)
+                if self.scene.findButtonByName("levelUp").draw(self.scene.screen):
+                    print("levelUp")
+                    self.playerHuman.levelUpTavern(self.tavern)
                 for button in self.scene.findAllButtonByName("buyCard"):
                     if button.draw(self.scene.screen):
                         print(button.card.name)
