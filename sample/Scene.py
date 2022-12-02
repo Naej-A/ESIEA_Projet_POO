@@ -15,6 +15,11 @@ class Scene():
 
 
     def chooseScene(self, game):
+        """
+        choose the scene to show
+        :param game: the game currently running
+        :return: None
+        """
         self.screen.blit(self.backGround, (0, -1))
         if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
             self.drawSceneTavern(game)
@@ -25,6 +30,11 @@ class Scene():
 
 
     def drawSceneTavern(self, game):
+        """
+        draw the tavern phase on screen
+        :param game: the game currently running
+        :return: None
+        """
         self.listButton = []
         tempImg = pygame.image.load('ressources/refresh.png').convert_alpha()
         refresh = button.Button("refresh", 5.9 * Scene.SCREEN_WIDTH / 10, 2 * Scene.SCREEN_HEIGHT / 13, tempImg, 3, None)
@@ -52,6 +62,11 @@ class Scene():
         # self.listButton.append(sellCard)
 
     def drawSceneSetting(self, game):
+        """
+            draw the Setting phase on screen
+            :param game: the game currently running
+            :return: None
+        """
         self.listButton = []
         tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
         next = button.Button("nextPhase", 700, 300, tempImg, 0.5, None)
@@ -71,9 +86,31 @@ class Scene():
             counter += tempImg.get_width() / 10 + 50
 
     def drawSceneFight(self, game):
+        """
+            draw the fighting phase on screen
+            :param game: the game currently running
+            :return: None
+        """
         self.screen.blit(self.backGround, (0, -1))
+        counter = 0
+        for card in game.playerHuman.fieldCardList.cardList:
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
+            sellCard = button.Button("takeCardBack", Scene.SCREEN_WIDTH/2 + counter - ( 77.5 + 2 * tempImg.get_width() / 10), Scene.SCREEN_HEIGHT / 2, tempImg, 0.1, card)
+            self.listButton.append(sellCard)
+            counter += tempImg.get_width() / 10 + 50
+        counter = 0
+        for card in game.playerIA.fieldCardList.cardList:
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
+            sellCard = button.Button("takeCardBack", Scene.SCREEN_WIDTH / 2 + counter - (77.5 + 2 * tempImg.get_width() / 10), Scene.SCREEN_HEIGHT / 2 - tempImg.get_height(), tempImg, 0.1, card)
+            self.listButton.append(sellCard)
+            counter += tempImg.get_width() / 10 + 50
 
     def findButtonByName(self, name):
+        """
+        find one the button by name
+        :param name: the name of the button
+        :return: a button object if found and None if not
+        """
         for button in self.listButton:
             if button.name == name:
                 return button
@@ -81,6 +118,11 @@ class Scene():
 
 
     def findAllButtonByName(self, name):
+        """
+        find all the button that have the same name
+        :param name: the name of the button
+        :return: a list of button object if found and None if not
+        """
         listTemp = []
         for button in self.listButton:
             if button.name == name:

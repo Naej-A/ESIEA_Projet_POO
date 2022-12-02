@@ -1,5 +1,5 @@
+# Class created by russs123 modified from : https://github.com/russs123/pygame_tutorials/tree/main/Button
 import pygame
-
 
 # button class
 class Button():
@@ -16,6 +16,11 @@ class Button():
         self.card = card
 
     def draw(self, surface):
+        """
+        draw a button and the button has been clicked
+        :param surface: the screen where we want to
+        :return: return if the button has been clicked or not
+        """
         action = False
         # get mouse position
         pos = pygame.mouse.get_pos()

@@ -16,9 +16,12 @@ class Game(object):
         self.playerIA = Player.Player()
         self.tavern = Tavern.Tavern()
         self.scene = Scene.Scene()
-        
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
+        """
+        the function that will run the game
+        :return: None
+        """
         clock = pygame.time.Clock()
         while self.playerHuman.healthPoint > 0 and self.playerIA.healthPoint > 0:
             self.turnNumber += 1
@@ -50,7 +53,7 @@ class Game(object):
                     print("nextPhase")
                     nextButtonNotPressed = False
                 pygame.display.update()
-                clock.tick(2000)
+                clock.tick(200)
                 for event in pygame.event.get():
                     # quit game
                     if event.type == pygame.QUIT:
@@ -72,30 +75,39 @@ class Game(object):
                     print("nextPhase")
                     nextButtonNotPressed = False
                 pygame.display.update()
-                clock.tick(2000)
+                clock.tick(200)
                 for event in pygame.event.get():
                     # quit game
                     if event.type == pygame.QUIT:
                         run = False
                         pygame.quit()
             #Phase fighting
+            # Faire les effets
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
+            self.scene.chooseScene(self)
+            time.sleep(5)
             firstPlayer, secondPlayer = self.chooseOrder()
             self.combatPhase(firstPlayer, secondPlayer)
             self.playerIA.turnCounter += 1
             self.playerHuman.turnCounter += 1
 
-
-
-
-    def combatPhase(self,firstPlayer,secondPlayer):
+    def combatPhase(self, firstPlayer, secondPlayer):
+        """
+        automatically resolve the combat
+        :param firstPlayer: the first player to attack
+        :param secondPlayer: the second player to attack
+        :return: None
+        """
         counterFirstPlayer = 0
         counterSecondPlayer = 0
         while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
             # attaque du first player
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
+                self.scene.chooseScene(self)
+                time.sleep(1.5)
                 counterFirstPlayer = 0
-
+            self.scene.chooseScene(self)
+            time.sleep(1.5)
             firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList[counterFirstPlayer].attack(
                 self.chooseTarget(secondPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0 :
@@ -109,7 +121,8 @@ class Game(object):
 
             if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
                 counterSecondPlayer = 0
-
+            self.scene.chooseScene(self)
+            time.sleep(1.5)
             secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
                 self.chooseTarget(firstPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0:
@@ -119,23 +132,15 @@ class Game(object):
 
             counterSecondPlayer += 1
 
-        for card in secondPlayer.fieldCardList:
+        for card in secondPlayer.fieldCardList.cardList:
                 firstPlayer.healthPoint -= card.level
-        for card in secondPlayer.fieldCardList:
+        for card in secondPlayer.fieldCardList.cardList:
                 secondPlayer.fieldCardList.changeCardToOtherDeck(card, secondPlayer.handCardList)
-        for card in firstPlayer.fieldCardList:
+        for card in firstPlayer.fieldCardList.cardList:
                 secondPlayer.healthPoint -= card.level
-        for card in firstPlayer.fieldCardList:
+        for card in firstPlayer.fieldCardList.cardList:
                 firstPlayer.fieldCardList.changeCardToOtherDeck(card, firstPlayer.handCardList)
 
-    def doEffect(self):
-        # Start of user code protected zone for doEffect function body
-        raise NotImplementedError
-        # End of user code	
-    def doAllEffect(self):
-        # Start of user code protected zone for doAllEffect function body
-        raise NotImplementedError
-        # End of user code	
     def fight(self):
         # Start of user code protected zone for fight function body
         firstPlayer, secondPlayer = self.chooseOrder()
@@ -143,6 +148,10 @@ class Game(object):
             firstPlayer.fieldCardList[1].attack(self.chooseTarget(secondPlayer))
         # End of user code	
     def chooseOrder(self):
+        """
+        choose the first players to play between the human and the IA
+        :return: [firstPlayer, secondPlayer]
+        """
         # Start of user code protected zone for chooseBeginer function body
         if random.randint(1, 2) == 1:
             firstPlayer = self.playerHuman
@@ -153,6 +162,11 @@ class Game(object):
         return firstPlayer, secondPlayer
         # End of user code	
     def chooseTarget(self, opponentField):
+        """
+        choose a random card to target
+        :param opponentField: the deck where to choose the deck
+        :return: card object to target
+        """
         # Start of user code protected zone for chooseTarget function body
         possibleTarget = []
         for iCard in opponentField:
