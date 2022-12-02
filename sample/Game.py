@@ -123,7 +123,6 @@ class Game(object):
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
                 counterFirstPlayer = 0
             self.scene.chooseScene(self)
-            time.sleep(1.5)
             firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList.cardList[counterFirstPlayer].attackCard(self.chooseTarget(secondPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0:
                 firstPlayerCardTemp.currentHealthPoint = firstPlayerCardTemp.maxHealthPoint
