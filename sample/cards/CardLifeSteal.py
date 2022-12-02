@@ -6,6 +6,11 @@ class CardLifeSteal(Card):
         Card.Card.__init__(self, name, race, gamePhase, level, attack, maxHealthPoint, description)
 
     def attack(self, targetCard):
+        """
+        attack the target card and heal the damage
+        :param targetCard: the card to attack
+        :return: [self, targetCard]
+        """
         if self.hasShield:
             self.hasShield = False
         else:

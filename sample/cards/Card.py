@@ -16,8 +16,19 @@ class Card(object):
 
     # End of user code
     def doEffect(self, game, fieldCardList):
+        """
+        do the effect of a card
+        :param game: the actual game
+        :param fieldCardList: the field where the effect takes place
+        :return: None
+        """
         return
     def attack(self, targetCard):
+        """
+        attack and inflict damage to another car if she has no shield
+        :param targetCard: the card to target
+        :return: himself and the targetedCard [himself,targetedCard]
+        """
         if self.hasShield:
             self.hasShield = False
         else:

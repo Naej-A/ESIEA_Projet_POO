@@ -66,6 +66,10 @@ class Deck(object):
         return cardLevelMax
 
     def findCardLowerLevel(self):
+        """
+        find one of the lowest level card
+        :return: return one card of the lowest level or none list length is 0
+        """
         if len(self.cardList) == 0:
             return None
         cardLevelMin = self.cardList[0]
@@ -86,6 +90,12 @@ class Deck(object):
         return cardTemp
 
     def changeCardToOtherDeck(self, card, deckDestination):
+        """
+        send a card from the deck to a destination deck
+        :param card: the card to send
+        :param deckDestination: the deck that will receive the card
+        :return: the searched card
+        """
         tempCard = self.removeCard(card)
         if tempCard:
             deckDestination.addCard(tempCard)
@@ -93,6 +103,10 @@ class Deck(object):
 
     @staticmethod
     def initAllCard():
+        """
+        init all card
+        :return: the list of cards
+        """
         # name, race, gamePhase, level, attack, maxHealthPoint, description
         tempList = []
         tempList.append(Card.Card("Michel", "AUBIN_Jean_Pierre_card.png", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 1, 2, 1, "Mi ingénieur mi bête, Michel est d'uné férocité métodique irréprochable"))

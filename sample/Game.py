@@ -16,9 +16,12 @@ class Game(object):
         self.playerIA = Player.Player()
         self.tavern = Tavern.Tavern()
         self.scene = Scene.Scene()
-        
     # Start of user code -> properties/constructors for Game class
     def startGame(self):
+        """
+        the function that will run the game
+        :return: None
+        """
         clock = pygame.time.Clock()
         while self.playerHuman.healthPoint > 0 and self.playerIA.healthPoint > 0:
             self.turnNumber += 1
@@ -70,7 +73,7 @@ class Game(object):
                         print("On peut pas retirer de cartes connard !")
                 if self.scene.findButtonByName("nextPhase").draw(self.scene.screen):
                     print("nextPhase")
-                    nextButtonNotPressed = False
+                nextButtonNotPressed = False
                 pygame.display.update()
                 clock.tick(2000)
                 for event in pygame.event.get():
@@ -85,10 +88,13 @@ class Game(object):
             self.playerIA.turnCounter += 1
             self.playerHuman.turnCounter += 1
 
-
-
-
-    def combatPhase(self,firstPlayer,secondPlayer):
+    def combatPhase(self, firstPlayer, secondPlayer):
+        """
+        automatically resolve the combat
+        :param firstPlayer: the first player to attack
+        :param secondPlayer: the second player to attack
+        :return: None
+        """
         counterFirstPlayer = 0
         counterSecondPlayer = 0
         while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
@@ -128,14 +134,6 @@ class Game(object):
         for card in firstPlayer.fieldCardList:
                 firstPlayer.fieldCardList.changeCardToOtherDeck(card, firstPlayer.handCardList)
 
-    def doEffect(self):
-        # Start of user code protected zone for doEffect function body
-        raise NotImplementedError
-        # End of user code	
-    def doAllEffect(self):
-        # Start of user code protected zone for doAllEffect function body
-        raise NotImplementedError
-        # End of user code	
     def fight(self):
         # Start of user code protected zone for fight function body
         firstPlayer, secondPlayer = self.chooseOrder()
@@ -143,6 +141,10 @@ class Game(object):
             firstPlayer.fieldCardList[1].attack(self.chooseTarget(secondPlayer))
         # End of user code	
     def chooseOrder(self):
+        """
+        choose the first players to play between the human and the IA
+        :return: [firstPlayer, secondPlayer]
+        """
         # Start of user code protected zone for chooseBeginer function body
         if random.randint(1, 2) == 1:
             firstPlayer = self.playerHuman
@@ -153,6 +155,11 @@ class Game(object):
         return firstPlayer, secondPlayer
         # End of user code	
     def chooseTarget(self, opponentField):
+        """
+        choose a random card to target
+        :param opponentField: the deck where to choose the deck
+        :return: card object to target
+        """
         # Start of user code protected zone for chooseTarget function body
         possibleTarget = []
         for iCard in opponentField:

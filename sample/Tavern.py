@@ -12,6 +12,11 @@ class Tavern(object):
 
     # End of user code
     def refreshTavernHuman(self, player):
+        """
+        refresh the list of card that the human can buy
+        :param player: HumanPlayer
+        :return: None
+        """
         # Start of user code protected zone for refreshTavern function body
         if player.gold >= 1:
             player.gold -= 1
@@ -26,6 +31,11 @@ class Tavern(object):
                     counter += 1
         return None
     def refreshTavernIA(self, player):
+        """
+        refresh the list of card that the AI can buy
+        :param player: AIPlayer
+        :return: None
+        """
         # Start of user code protected zone for refreshTavern function body
         if player.gold >= 1:
             player.gold -= 1
