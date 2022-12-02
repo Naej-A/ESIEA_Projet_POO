@@ -15,7 +15,7 @@ class Scene():
 
 
     def chooseScene(self, game):
-        # self.screen.blit(self.backGround, (0, -1))
+        self.screen.blit(self.backGround, (0, -1))
         if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
             self.drawSceneTavern(game)
         elif game.gamePhase.name == GAMEPHASE.GAMEPHASE.SETTING.name:
@@ -26,18 +26,21 @@ class Scene():
 
     def drawSceneTavern(self, game):
         self.listButton = []
-
-
         start_img = pygame.image.load('ressources/start_btn.png').convert_alpha()
         refresh = button.Button("refresh", 800, 300, start_img, 0.5, None)
         self.listButton.append(refresh)
         counter = 0
         for card in game.tavern.listCardShopHuman.cardList:
             start_img = pygame.image.load('ressources/exit_btn.png').convert_alpha()
-            sellCard = button.Button("sellCard", 400 + counter, 300, start_img, 0.5, card)
-            self.listButton.append(sellCard)
-            counter += 100
+            buyCard = button.Button("buyCard", Scene.SCREEN_WIDTH / 4 + counter, 4*Scene.SCREEN_HEIGHT / 13, start_img, 0.5, card)
+            self.listButton.append(buyCard)
+            counter += start_img.get_width() - 40
 
+        for card in game.playerHuman.handCardList.cardList:
+            start_img = pygame.image.load('ressources/exit_btn.png').convert_alpha()
+            sellCard = button.Button("sellCard", Scene.SCREEN_WIDTH / 4 + counter, 4*Scene.SCREEN_HEIGHT / 13, start_img, 0.5, card)
+            self.listButton.append(sellCard)
+            counter += start_img.get_width() - 40
 
 
         # start_img = pygame.image.load('exit_btn.png').convert_alpha()

@@ -30,8 +30,8 @@ class Game(object):
             self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
             self.playerIA.playTavernPhase(self.tavern)
             nextButtonNotPressed = True
-            self.scene.chooseScene(self)
             while nextButtonNotPressed:
+                self.scene.chooseScene(self)
                 test = self.scene.findButtonByName("refresh")
                 if test.draw(self.scene.screen):
                     print("refresh")
