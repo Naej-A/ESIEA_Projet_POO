@@ -82,7 +82,10 @@ class Game(object):
                         run = False
                         pygame.quit()
             #Phase fighting
+            # Faire les effets
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
+            self.scene.chooseScene(self)
+            time.sleep(5)
             firstPlayer, secondPlayer = self.chooseOrder()
             self.combatPhase(firstPlayer, secondPlayer)
             self.playerIA.turnCounter += 1
@@ -100,8 +103,11 @@ class Game(object):
         while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
             # attaque du first player
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
+                self.scene.chooseScene(self)
+                time.sleep(1.5)
                 counterFirstPlayer = 0
-
+            self.scene.chooseScene(self)
+            time.sleep(1.5)
             firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList[counterFirstPlayer].attack(
                 self.chooseTarget(secondPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0 :
@@ -115,7 +121,8 @@ class Game(object):
 
             if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
                 counterSecondPlayer = 0
-
+            self.scene.chooseScene(self)
+            time.sleep(1.5)
             secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
                 self.chooseTarget(firstPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0:
@@ -125,13 +132,13 @@ class Game(object):
 
             counterSecondPlayer += 1
 
-        for card in secondPlayer.fieldCardList:
+        for card in secondPlayer.fieldCardList.cardList:
                 firstPlayer.healthPoint -= card.level
-        for card in secondPlayer.fieldCardList:
+        for card in secondPlayer.fieldCardList.cardList:
                 secondPlayer.fieldCardList.changeCardToOtherDeck(card, secondPlayer.handCardList)
-        for card in firstPlayer.fieldCardList:
+        for card in firstPlayer.fieldCardList.cardList:
                 secondPlayer.healthPoint -= card.level
-        for card in firstPlayer.fieldCardList:
+        for card in firstPlayer.fieldCardList.cardList:
                 firstPlayer.fieldCardList.changeCardToOtherDeck(card, firstPlayer.handCardList)
 
     def fight(self):
