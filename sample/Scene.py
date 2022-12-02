@@ -8,6 +8,7 @@ class Scene():
     SCREEN_WIDTH = 1000
 
     pygame.font.init()
+    policeHP = pygame.font.Font("sample/arial.ttf", 75)
     policeGolds = pygame.font.Font("sample/arial.ttf", 50)
     policeTavern = pygame.font.Font("sample/arial.ttf", 25)
 
@@ -26,6 +27,8 @@ class Scene():
         :return: None
         """
         self.screen.blit(self.backGround, (0, -1))
+        HP = Scene.policeHP.render(str(game.playerHuman.healthPoint), True, (255, 0, 0))
+        self.screen.blit(HP, ((Scene.SCREEN_WIDTH - HP.get_width() + 15) / 2, 7 * Scene.SCREEN_HEIGHT / 10 + 5))
         if game.gamePhase.name == GAMEPHASE.GAMEPHASE.TAVERN.name:
             self.drawSceneTavern(game)
         elif game.gamePhase.name == GAMEPHASE.GAMEPHASE.SETTING.name:
@@ -102,6 +105,8 @@ class Scene():
             :param game: the game currently running
             :return: None
         """
+        HPIA = Scene.policeHP.render(str(game.playerIA.healthPoint), True, (255, 0, 0))
+        self.screen.blit(HPIA, ((Scene.SCREEN_WIDTH - HPIA.get_width() + 15) / 2, 2.4 * Scene.SCREEN_HEIGHT / 10 + 5 - HPIA.get_height()))
         counter = 0
         for card in game.playerHuman.fieldCardList.cardList:
             tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
