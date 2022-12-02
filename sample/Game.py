@@ -105,6 +105,12 @@ class Game(object):
             self.playerIA.turnCounter += 1
             self.playerHuman.turnCounter += 1
 
+        if self.playerHuman.healthPoint > self.playerIA.healthPoint:
+            print("Victory !")
+        else:
+            print("Defete")
+        print("End of the game")
+
     def combatPhase(self, firstPlayer, secondPlayer):
         """
         automatically resolve the combat
@@ -115,10 +121,7 @@ class Game(object):
         counterFirstPlayer = 0
         counterSecondPlayer = 0
         while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
-            # attaque du first player
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
-                self.scene.chooseScene(self)
-                pygame.display.update()
                 print("affichage")
                 print("time sleep 1.5")
                 time.sleep(1.5)
@@ -147,15 +150,21 @@ class Game(object):
             tempCounter = counterFirstPlayer
             counterFirstPlayer = counterSecondPlayer
             counterSecondPlayer = tempCounter
+            self.scene.chooseScene(self)
+            pygame.display.update()
 
-        for card in secondPlayer.fieldCardList.cardList:
-                firstPlayer.healthPoint -= card.level
-        for card in secondPlayer.fieldCardList.cardList:
-                secondPlayer.fieldCardList.changeCardToOtherDeck(card, secondPlayer.handCardList)
-        for card in firstPlayer.fieldCardList.cardList:
-                secondPlayer.healthPoint -= card.level
-        for card in firstPlayer.fieldCardList.cardList:
-                firstPlayer.fieldCardList.changeCardToOtherDeck(card, firstPlayer.handCardList)
+        temp = len(secondPlayer.fieldCardList.cardList)
+        for index in range(temp):
+                firstPlayer.healthPoint -= secondPlayer.fieldCardList.cardList[index].level
+        temp = len(firstPlayer.fieldCardList.cardList)
+        for index in range(temp):
+                secondPlayer.healthPoint -= firstPlayer.fieldCardList.cardList[index].level
+        temp = len(secondPlayer.fieldCardList.cardList)
+        for i in range(temp):
+                secondPlayer.fieldCardList.changeCardToOtherDeck(secondPlayer.fieldCardList.cardList[0], secondPlayer.handCardList)
+        temp = len(firstPlayer.fieldCardList.cardList)
+        for i in range(temp):
+                firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayer.fieldCardList.cardList[0], firstPlayer.handCardList)
 
     def fight(self):
         # Start of user code protected zone for fight function body

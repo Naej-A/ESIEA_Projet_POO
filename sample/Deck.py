@@ -122,7 +122,7 @@ class Deck(object):
 
 
         for i in range (2):
-            tempList.append(Card.Card("BATEAU PIRATE", "Bateau_Pirate_card.png", RACE.RACE.Pirate, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "Bato"))
+            tempList.append(Card.Card("BATEAU PIRATE", "Bateau_Pirate.png", RACE.RACE.Pirate, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "Bato"))
             tempList.append(Card.Card("Batiment_ESIEA", "Batiment_ESIEA_card.png", RACE.RACE.Mech, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "ESIEA"))
             tempList.append(Card.Card("CRISON", "CRISON_Franck_card.png", RACE.RACE.Mech, GAMEPHASE.GAMEPHASE.NONE, 2, 3, 1, "CRISON"))
             tempList.append(Card.Card("Terrain Nuage", "Terrain_Nuage_card.png", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "Terrain Nuage"))
