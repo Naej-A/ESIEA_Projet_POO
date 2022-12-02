@@ -100,6 +100,13 @@ class Deck(object):
         tempList.append(Card.Card("CHTULU", "CHTULU_card.png", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.STARTFIGHT, 4, 6, 3, "CHTULU"))
         tempList.append(Card.Card("Drake", "Le_Drake_Originel_card.png", RACE.RACE.Drake, GAMEPHASE.GAMEPHASE.STARTFIGHT, 4, 5, 5,"Drake"))
 
+
+        tempList.append(Card.Card("Pic Pirate", "Pic_Pirate_card.png", RACE.RACE.Pirate, GAMEPHASE.GAMEPHASE.STARTFIGHT, 3, 5, 3,"Pic Pirate"))
+        tempList.append(Card.Card("Phoenix", "Phoenix_card.png", RACE.RACE.Beast, GAMEPHASE.GAMEPHASE.STARTFIGHT, 3, 3, 5,"Phoenix"))
+        tempList.append(Card.Card("Dragon Peluche", "Dragon_Peluche_card.png", RACE.RACE.Drake, GAMEPHASE.GAMEPHASE.STARTFIGHT, 3, 4, 4,"Dragon Peluche"))
+
+
+
         for i in range (2):
             tempList.append(Card.Card("BATEAU PIRATE", "Bateau_Pirate_card.png", RACE.RACE.Pirate, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "Bato"))
             tempList.append(Card.Card("Batiment_ESIEA", "Batiment_ESIEA_card.png", RACE.RACE.Mech, GAMEPHASE.GAMEPHASE.NONE, 2, 0, 4, "ESIEA"))
