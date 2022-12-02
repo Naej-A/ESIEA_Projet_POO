@@ -45,7 +45,7 @@ class Player(object):
         """
         # Start of user code protected zone for levelUp function body
         levelUpCost = 5 - self.turnCounter
-        if self.tavernLevel < tavern.maxLevel and self.gold >= 5 - levelUpCost:
+        if self.tavernLevel < tavern.maxLevel and self.gold >= levelUpCost:
             self.tavernLevel += 1
             self.gold -= levelUpCost
             self.turnCounter = 0
@@ -53,7 +53,7 @@ class Player(object):
         # End of user code	
     def setGold(self, game):
         # Start of user code protected zone for levelUp function body
-        self.gold = min(game.turnNumber + 2, 10)
+        self.gold = min(game.turnNumber + 3, 11)
         # End of user code	
     def sellCard(self, card, tavern):
         # Start of user code protected zone for sellCard function body
@@ -102,6 +102,3 @@ class Player(object):
         """
         for i in range(game.maxFieldCard):
             self.playCard(self.handCardList.findCardHigherLevel(), game)
-
-
-

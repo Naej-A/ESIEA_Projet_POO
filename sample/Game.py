@@ -30,10 +30,12 @@ class Game(object):
             self.tavern.refreshTavernHuman(self.playerHuman)
             self.tavern.refreshTavernIA(self.playerIA)
             #Phase tavern
-            self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
             self.playerIA.playTavernPhase(self.tavern)
+            print("main IA :")
+            print(self.playerIA.handCardList.cardList)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
+                self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
                 self.playerHuman.gold = 10 # SUPPRIMER ça !!!
                 self.scene.chooseScene(self)
                 if self.scene.findButtonByName("refresh").draw(self.scene.screen):
@@ -62,6 +64,8 @@ class Game(object):
             #Phase setting
             self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
             self.playerIA.playSettingPhase(self)
+            print("Terrain IA :")
+            print(self.playerIA.fieldCardList.cardList)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
                 self.scene.chooseScene(self)
@@ -84,8 +88,15 @@ class Game(object):
             #Phase fighting
             # Faire les effets
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
+            print("entrée en gamephase fight")
             self.scene.chooseScene(self)
-            time.sleep(5)
+            for button in self.scene.findAllButtonByName("takeCardBack"):
+                if button.draw(self.scene.screen):
+                    print("On peut pas retirer de cartes connard !")
+            pygame.display.update()
+            print("time sleep 5")
+            time.sleep(1)
+            print("fin time sleep")
             firstPlayer, secondPlayer = self.chooseOrder()
             self.combatPhase(firstPlayer, secondPlayer)
             self.playerIA.turnCounter += 1
@@ -104,33 +115,48 @@ class Game(object):
             # attaque du first player
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
                 self.scene.chooseScene(self)
+                pygame.display.update()
+                print("affichage")
+                print("time sleep 1.5")
                 time.sleep(1.5)
+                print("fin time sleep")
                 counterFirstPlayer = 0
             self.scene.chooseScene(self)
             time.sleep(1.5)
-            firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList[counterFirstPlayer].attack(
-                self.chooseTarget(secondPlayer.fieldCardList))
-            if firstPlayerCardTemp.currentHealthPoint <= 0 :
+
+            target = self.chooseTarget(secondPlayer.fieldCardList)
+            print(firstPlayer.fieldCardList.cardList)
+            card = firstPlayer.fieldCardList.cardList[counterFirstPlayer]
+
+            firstPlayerCardTemp, secondPlayerCardTemp = card.attackCard(target)
+            if firstPlayerCardTemp.currentHealthPoint <= 0:
                 firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
             if secondPlayerCardTemp.currentHealthPoint <= 0:
                 firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
 
             counterFirstPlayer += 1
 
+            tempPlayer = firstPlayer
+            firstPlayer = secondPlayer
+            secondPlayer = tempPlayer
+            tempCounter = counterFirstPlayer
+            counterFirstPlayer = counterSecondPlayer
+            counterSecondPlayer = tempCounter
+
             # attaque du second player
 
-            if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
-                counterSecondPlayer = 0
-            self.scene.chooseScene(self)
-            time.sleep(1.5)
-            secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
-                self.chooseTarget(firstPlayer.fieldCardList))
-            if firstPlayerCardTemp.currentHealthPoint <= 0:
-                firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
-            if secondPlayerCardTemp.currentHealthPoint <= 0:
-                firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
-
-            counterSecondPlayer += 1
+            # if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
+            #     counterSecondPlayer = 0
+            # self.scene.chooseScene(self)
+            # time.sleep(1.5)
+            # secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
+            #     self.chooseTarget(firstPlayer.fieldCardList))
+            # if firstPlayerCardTemp.currentHealthPoint <= 0:
+            #     firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
+            # if secondPlayerCardTemp.currentHealthPoint <= 0:
+            #     firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
+            #
+            # counterSecondPlayer += 1
 
         for card in secondPlayer.fieldCardList.cardList:
                 firstPlayer.healthPoint -= card.level
@@ -145,7 +171,7 @@ class Game(object):
         # Start of user code protected zone for fight function body
         firstPlayer, secondPlayer = self.chooseOrder()
         while self.playerHuman.monsterNumber > 0 and self.playerIA.monsterNumber > 0:
-            firstPlayer.fieldCardList[1].attack(self.chooseTarget(secondPlayer))
+            firstPlayer.fieldCardList[1].attackCard(self.chooseTarget(secondPlayer))
         # End of user code	
     def chooseOrder(self):
         """
@@ -169,8 +195,8 @@ class Game(object):
         """
         # Start of user code protected zone for chooseTarget function body
         possibleTarget = []
-        for iCard in opponentField:
-            if iCard.healthPoint > 0:
+        for iCard in opponentField.cardList:
+            if iCard.currentHealthPoint > 0:
                 possibleTarget.append(iCard)
         return random.choice(possibleTarget)
 

@@ -23,7 +23,7 @@ class Card(object):
         :return: None
         """
         return
-    def attack(self, targetCard):
+    def attackCard(self, targetCard):
         """
         attack and inflict damage to another car if she has no shield
         :param targetCard: the card to target

@@ -14,7 +14,7 @@ class CardLifeSteal(Card):
         if self.hasShield:
             self.hasShield = False
         else:
-            self.currentHealthPoint -= targetCard.attack
+            self.currentHealthPoint -= targetCard.attackCard
         if targetCard.hasShield:
             targetCard.hasShield = False
         else:

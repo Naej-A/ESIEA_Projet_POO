@@ -40,12 +40,12 @@ class Tavern(object):
         if player.gold >= 1:
             player.gold -= 1
             for card in self.listCardShopIA.cardList:
-                self.deck.changeCardToOtherDeck(card, self.listCardShopIA)
+                self.listCardShopIA.changeCardToOtherDeck(card, self.deck)
             counter = 0
             while counter < 3:
                 card = random.choice(self.deck.cardList)
                 if player.tavernLevel >= card.level:
-                    self.listCardShopIA.changeCardToOtherDeck(card, self.deck)
+                    self.deck.changeCardToOtherDeck(card, self.listCardShopIA)
                     counter += 1
         return None
     # Start of user code -> methods for Tavern class

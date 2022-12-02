@@ -91,7 +91,6 @@ class Scene():
             :param game: the game currently running
             :return: None
         """
-        self.screen.blit(self.backGround, (0, -1))
         counter = 0
         for card in game.playerHuman.fieldCardList.cardList:
             tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
@@ -101,7 +100,7 @@ class Scene():
         counter = 0
         for card in game.playerIA.fieldCardList.cardList:
             tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
-            sellCard = button.Button("takeCardBack", Scene.SCREEN_WIDTH / 2 + counter - (77.5 + 2 * tempImg.get_width() / 10), Scene.SCREEN_HEIGHT / 2 - tempImg.get_height(), tempImg, 0.1, card)
+            sellCard = button.Button("takeCardBack", Scene.SCREEN_WIDTH / 2 + counter - (77.5 + 2 * tempImg.get_width() / 10), Scene.SCREEN_HEIGHT / 2 - (tempImg.get_height() / 10 + 55), tempImg, 0.1, card)
             self.listButton.append(sellCard)
             counter += tempImg.get_width() / 10 + 50
 
