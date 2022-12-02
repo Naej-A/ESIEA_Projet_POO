@@ -36,7 +36,6 @@ class Game(object):
             nextButtonNotPressed = True
             while nextButtonNotPressed:
                 self.gamePhase = GAMEPHASE.GAMEPHASE.TAVERN
-                self.playerHuman.gold = 10 # SUPPRIMER ça !!!
                 self.scene.chooseScene(self)
                 if self.scene.findButtonByName("refresh").draw(self.scene.screen):
                     print("refresh")
