@@ -130,9 +130,11 @@ class Game(object):
 
             firstPlayerCardTemp, secondPlayerCardTemp = card.attackCard(target)
             if firstPlayerCardTemp.currentHealthPoint <= 0:
+                firstPlayerCardTemp.currentHealthPoint = firstPlayerCardTemp.maxHealthPoint
                 firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
             if secondPlayerCardTemp.currentHealthPoint <= 0:
-                firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
+                secondPlayerCardTemp.currentHealthPoint = secondPlayerCardTemp.maxHealthPoint
+                secondPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, secondPlayer.handCardList)
 
             counterFirstPlayer += 1
 
@@ -142,21 +144,6 @@ class Game(object):
             tempCounter = counterFirstPlayer
             counterFirstPlayer = counterSecondPlayer
             counterSecondPlayer = tempCounter
-
-            # attaque du second player
-
-            # if counterSecondPlayer >= len(secondPlayer.fieldCardList.cardList):
-            #     counterSecondPlayer = 0
-            # self.scene.chooseScene(self)
-            # time.sleep(1.5)
-            # secondPlayerCardTemp, firstPlayerCardTemp = secondPlayer.fieldCardList[counterSecondPlayer].attack(
-            #     self.chooseTarget(firstPlayer.fieldCardList))
-            # if firstPlayerCardTemp.currentHealthPoint <= 0:
-            #     firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
-            # if secondPlayerCardTemp.currentHealthPoint <= 0:
-            #     firstPlayer.fieldCardList.changeCardToOtherDeck(secondPlayerCardTemp, firstPlayer.handCardList)
-            #
-            # counterSecondPlayer += 1
 
         for card in secondPlayer.fieldCardList.cardList:
                 firstPlayer.healthPoint -= card.level

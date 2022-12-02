@@ -6,6 +6,10 @@ import sample.button as button
 class Scene():
     SCREEN_HEIGHT = 700
     SCREEN_WIDTH = 1000
+
+    pygame.font.init()
+    police = pygame.font.Font("sample/arial.ttf", 50)
+
     def __init__(self):
         self.listButton = []
         self.backGround = pygame.transform.scale(pygame.image.load("ressources/backGround.png"), (int(Scene.SCREEN_WIDTH), int(Scene.SCREEN_HEIGHT + 2)))
@@ -40,7 +44,7 @@ class Scene():
         refresh = button.Button("refresh", 5.9 * Scene.SCREEN_WIDTH / 10, 2 * Scene.SCREEN_HEIGHT / 13, tempImg, 3, None)
         self.listButton.append(refresh)
         tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
-        next = button.Button("nextPhase", 700, 300, tempImg, 0.5, None)
+        next = button.Button("nextPhase", 8 * Scene.SCREEN_WIDTH / 10, (Scene.SCREEN_HEIGHT - tempImg.get_height()) / 2, tempImg, 0.5, None)
         self.listButton.append(next)
         #Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
         counter = 0
@@ -55,7 +59,8 @@ class Scene():
             sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter, Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
             self.listButton.append(sellCard)
             counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
-
+        golds = Scene.police.render("Golds : " + str(game.playerHuman.gold), True, (255, 255, 0))
+        self.screen.blit(golds, ((Scene.SCREEN_WIDTH - golds.get_width() + 40) / 2, Scene.SCREEN_HEIGHT / 100))
 
         # start_img = pygame.image.load('exit_btn.png').convert_alpha()
         # sellCard = button.Button("sellCard", 500, 300, start_img, 0.5)
@@ -69,7 +74,7 @@ class Scene():
         """
         self.listButton = []
         tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
-        next = button.Button("nextPhase", 700, 300, tempImg, 0.5, None)
+        next = button.Button("nextPhase", (Scene.SCREEN_WIDTH - tempImg.get_width() / 2.2) / 2, (Scene.SCREEN_HEIGHT - tempImg.get_width()) / 2, tempImg, 0.5, None)
         self.listButton.append(next)
         # Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
         counter = 0
