@@ -31,32 +31,31 @@ class Game(object):
             self.playerIA.playTavernPhase(self.tavern)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
+                self.playerHuman.gold = 10
                 self.scene.chooseScene(self)
-                test = self.scene.findButtonByName("refresh")
-                if test.draw(self.scene.screen):
+                if self.scene.findButtonByName("refresh").draw(self.scene.screen):
                     print("refresh")
-                    # On en est la (bouton affiché mais ça crash encore wesh)
                     self.tavern.refreshTavernHuman(self.playerHuman)
-                for button in  self.scene.findAllButtonByName("sellCard"):
+                for button in self.scene.findAllButtonByName("buyCard"):
+                    if button.draw(self.scene.screen):
+                        print(button.card.name)
+                        print(button.card)
+                        self.playerHuman.buyCardHuman(button.card, self.tavern)
+                for button in self.scene.findAllButtonByName("sellCard"):
                     if button.draw(self.scene.screen):
                         print(button.card.name)
                         print(button.card)
                         self.playerHuman.sellCard(button.card, self.tavern)
-
-
-
-                # if buyCard:
-                #     self.playerHuman.buyCard()
-                # if nextButton:
-                #     nextButtonNotPressed = False
+                if self.scene.findButtonByName("nextPhase").draw(self.scene.screen):
+                    print("nextPhase")
+                    nextButtonNotPressed = False
                 pygame.display.update()
-                clock.tick(10)
+                clock.tick(2000)
                 for event in pygame.event.get():
                     # quit game
                     if event.type == pygame.QUIT:
                         run = False
                         pygame.quit()
-
             #Phase setting
             self.gamePhase = GAMEPHASE.GAMEPHASE.SETTING
             self.playerIA.playSettingPhase(self)
@@ -68,6 +67,13 @@ class Game(object):
                 #     self.playerHuman.fieldCardList.doAllEffect(self)
                 #     self.playerIA.fieldCardList.doAllEffect(self)
                     nextButtonNotPressed = False
+                pygame.display.update()
+                clock.tick(2000)
+                for event in pygame.event.get():
+                    # quit game
+                    if event.type == pygame.QUIT:
+                        run = False
+                        pygame.quit()
             #Phase fighting
             self.gamePhase = GAMEPHASE.GAMEPHASE.FIGHT
             firstPlayer, secondPlayer = self.chooseOrder()

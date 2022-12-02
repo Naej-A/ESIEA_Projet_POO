@@ -26,21 +26,25 @@ class Scene():
 
     def drawSceneTavern(self, game):
         self.listButton = []
-        start_img = pygame.image.load('ressources/start_btn.png').convert_alpha()
-        refresh = button.Button("refresh", 800, 300, start_img, 0.5, None)
+        tempImg = pygame.image.load('ressources/refresh.png').convert_alpha()
+        refresh = button.Button("refresh", 5.9 * Scene.SCREEN_WIDTH / 10, 2 * Scene.SCREEN_HEIGHT / 13, tempImg, 3, None)
         self.listButton.append(refresh)
+        tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
+        next = button.Button("nextPhase", 700, 300, tempImg, 0.5, None)
+        self.listButton.append(next)
+        #Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
         counter = 0
         for card in game.tavern.listCardShopHuman.cardList:
-            start_img = pygame.image.load('ressources/exit_btn.png').convert_alpha()
-            buyCard = button.Button("buyCard", Scene.SCREEN_WIDTH / 4 + counter, 4*Scene.SCREEN_HEIGHT / 13, start_img, 0.5, card)
+            tempImg = pygame.image.load('ressources/AUBIN_Jean_Pierre_card.png').convert_alpha()
+            buyCard = button.Button("buyCard",  Scene.SCREEN_WIDTH/2 + counter - ( 90 + 1.5 * tempImg.get_width() / 10), 5 * Scene.SCREEN_HEIGHT / 11 - tempImg.get_height() / 10, tempImg, 0.1, card)
             self.listButton.append(buyCard)
-            counter += start_img.get_width() - 40
-
+            counter += tempImg.get_width() / 10 + 100
+        counter = 0
         for card in game.playerHuman.handCardList.cardList:
-            start_img = pygame.image.load('ressources/exit_btn.png').convert_alpha()
-            sellCard = button.Button("sellCard", Scene.SCREEN_WIDTH / 4 + counter, 4*Scene.SCREEN_HEIGHT / 13, start_img, 0.5, card)
+            tempImg = pygame.image.load('ressources/CRISON_Franck_card.png').convert_alpha()
+            sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter, Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
             self.listButton.append(sellCard)
-            counter += start_img.get_width() - 40
+            counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
 
 
         # start_img = pygame.image.load('exit_btn.png').convert_alpha()
@@ -48,7 +52,27 @@ class Scene():
         # self.listButton.append(sellCard)
 
     def drawSceneSetting(self, game):
-        self.screen.blit(self.backGround, (0, -1))
+        self.listButton = []
+        tempImg = pygame.image.load('ressources/start_btn.png').convert_alpha()
+        next = button.Button("nextPhase", 700, 300, tempImg, 0.5, None)
+        self.listButton.append(next)
+        # Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
+        counter = 0
+        for card in game.playerHuman.handCardList:
+            tempImg = pygame.image.load('ressources/AUBIN_Jean_Pierre_card.png').convert_alpha()
+            buyCard = button.Button("buyCard", Scene.SCREEN_WIDTH / 2 + counter - (90 + 1.5 * tempImg.get_width() / 10),
+                                    5 * Scene.SCREEN_HEIGHT / 11 - tempImg.get_height() / 10, tempImg, 0.1, card)
+            self.listButton.append(buyCard)
+            counter += tempImg.get_width() / 10 + 100
+        counter = 0
+        for card in game.playerHuman.handCardList.cardList:
+            tempImg = pygame.image.load('ressources/CRISON_Franck_card.png').convert_alpha()
+            sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter,
+                                     Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (
+                                                 Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
+            self.listButton.append(sellCard)
+            counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
+
     def drawSceneFight(self, game):
         self.screen.blit(self.backGround, (0, -1))
 
