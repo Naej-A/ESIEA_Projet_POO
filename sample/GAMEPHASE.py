@@ -7,3 +7,4 @@ class GAMEPHASE(Enum):
     TAVERN = 2
     SETTING = 3
     FIGHT = 4
+    STARTFIGHT = 5
