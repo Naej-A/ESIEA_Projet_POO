@@ -97,8 +97,8 @@ class Game(object):
                 if button.draw(self.scene.screen):
                     print("On peut pas retirer de cartes connard !")
             pygame.display.update()
-            print("time sleep 5")
-            time.sleep(1)
+            print("time sleep 2")
+            time.sleep(2)
             print("fin time sleep")
             firstPlayer, secondPlayer = self.chooseOrder()
             self.combatPhase(firstPlayer, secondPlayer)
@@ -122,19 +122,10 @@ class Game(object):
         counterSecondPlayer = 0
         while len(firstPlayer.fieldCardList.cardList) > 0 and len(secondPlayer.fieldCardList.cardList) > 0:
             if counterFirstPlayer >= len(firstPlayer.fieldCardList.cardList):
-                print("affichage")
-                print("time sleep 1.5")
-                time.sleep(1.5)
-                print("fin time sleep")
                 counterFirstPlayer = 0
             self.scene.chooseScene(self)
             time.sleep(1.5)
-
-            target = self.chooseTarget(secondPlayer.fieldCardList)
-            print(firstPlayer.fieldCardList.cardList)
-            card = firstPlayer.fieldCardList.cardList[counterFirstPlayer]
-
-            firstPlayerCardTemp, secondPlayerCardTemp = card.attackCard(target)
+            firstPlayerCardTemp, secondPlayerCardTemp = firstPlayer.fieldCardList.cardList[counterFirstPlayer].attackCard(self.chooseTarget(secondPlayer.fieldCardList))
             if firstPlayerCardTemp.currentHealthPoint <= 0:
                 firstPlayerCardTemp.currentHealthPoint = firstPlayerCardTemp.maxHealthPoint
                 firstPlayer.fieldCardList.changeCardToOtherDeck(firstPlayerCardTemp, firstPlayer.handCardList)
@@ -152,6 +143,9 @@ class Game(object):
             counterSecondPlayer = tempCounter
             self.scene.chooseScene(self)
             pygame.display.update()
+            for button in self.scene.findAllButtonByName("takeCardBack"):
+                if button.draw(self.scene.screen):
+                    print("On peut pas retirer de cartes connard !")
 
         temp = len(secondPlayer.fieldCardList.cardList)
         for index in range(temp):
