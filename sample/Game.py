@@ -53,7 +53,7 @@ class Game(object):
                     print("nextPhase")
                     nextButtonNotPressed = False
                 pygame.display.update()
-                clock.tick(2000)
+                clock.tick(200)
                 for event in pygame.event.get():
                     # quit game
                     if event.type == pygame.QUIT:
@@ -73,9 +73,9 @@ class Game(object):
                         print("On peut pas retirer de cartes connard !")
                 if self.scene.findButtonByName("nextPhase").draw(self.scene.screen):
                     print("nextPhase")
-                nextButtonNotPressed = False
+                    nextButtonNotPressed = False
                 pygame.display.update()
-                clock.tick(2000)
+                clock.tick(200)
                 for event in pygame.event.get():
                     # quit game
                     if event.type == pygame.QUIT:
