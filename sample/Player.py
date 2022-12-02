@@ -59,22 +59,22 @@ class Player(object):
             self.levelUpTavern(tavern)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList), tavern)
-        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(), tavern)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList), tavern)
         tavern.refreshTavernIA(self)
-        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
-        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(), tavern)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
         tavern.refreshTavernIA(self)
         if len(self.handCardList.cardList) > 4:
             self.sellCard(self.handCardList.findCardLowerLevel(self.handCardList))
-        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(tavern.listCardShopIA), tavern)
+        self.buyCardIA(tavern.listCardShopIA.findCardHigherLevel(), tavern)
 
     def playSettingPhase(self, game):
         for i in range(game.maxFieldCard):
-            self.playCard(self.handCardList.findCardHigherLevel(self.handCardList))
+            self.playCard(self.handCardList.findCardHigherLevel())
 
 
 
