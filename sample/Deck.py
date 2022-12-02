@@ -65,11 +65,11 @@ class Deck(object):
                 cardLevelMax = card
         return cardLevelMax
 
-    def findCardLowerLevel(self, cardList):
-        if len(cardList) == 0:
+    def findCardLowerLevel(self):
+        if len(self.cardList) == 0:
             return None
-        cardLevelMin = cardList[0]
-        for card in cardList.cardList:
+        cardLevelMin = self.cardList[0]
+        for card in self.cardList:
             if card.level < cardLevelMin.level:
                 cardLevelMin = card
         return cardLevelMin
