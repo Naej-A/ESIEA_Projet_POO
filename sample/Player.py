@@ -46,7 +46,7 @@ class Player(object):
     def playCard(self, card, game):
         # Start of user code protected zone for playCard function body
         if len(self.fieldCardList.cardList) < game.maxFieldCard:
-            self.fieldCardList.changeCardToOtherDeck(card, self.handCardList)
+            self.handCardList.changeCardToOtherDeck(card, self.fieldCardList)
         return None
         # End of user code	
     # Start of user code -> methods for Player class
@@ -74,7 +74,7 @@ class Player(object):
 
     def playSettingPhase(self, game):
         for i in range(game.maxFieldCard):
-            self.playCard(self.handCardList.findCardHigherLevel())
+            self.playCard(self.handCardList.findCardHigherLevel(), game)
 
 
 

@@ -1,7 +1,8 @@
 
 class Card(object):
-    def __init__(self, name, race, gamePhase, level, attack, maxHealthPoint, description):
+    def __init__(self, name, imageName, race, gamePhase, level, attack, maxHealthPoint, description):
         self.name = name
+        self.imageName = imageName
         self.race = race
         self.gamePhase = gamePhase
         self.level = level

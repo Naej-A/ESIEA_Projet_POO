@@ -31,7 +31,7 @@ class Game(object):
             self.playerIA.playTavernPhase(self.tavern)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
-                self.playerHuman.gold = 10
+                self.playerHuman.gold = 10 # SUPPRIMER ça !!!
                 self.scene.chooseScene(self)
                 if self.scene.findButtonByName("refresh").draw(self.scene.screen):
                     print("refresh")
@@ -61,11 +61,15 @@ class Game(object):
             self.playerIA.playSettingPhase(self)
             nextButtonNotPressed = True
             while nextButtonNotPressed:
-                # if playCard:
-                #     self.playerHuman.playCard()
-                # if nextButton:
-                #     self.playerHuman.fieldCardList.doAllEffect(self)
-                #     self.playerIA.fieldCardList.doAllEffect(self)
+                self.scene.chooseScene(self)
+                for button in self.scene.findAllButtonByName("playCard"):
+                    if button.draw(self.scene.screen):
+                        self.playerHuman.playCard(button.card, self)
+                for button in self.scene.findAllButtonByName("takeCardBack"):
+                    if button.draw(self.scene.screen):
+                        print("On peut pas retirer de cartes connard !")
+                if self.scene.findButtonByName("nextPhase").draw(self.scene.screen):
+                    print("nextPhase")
                     nextButtonNotPressed = False
                 pygame.display.update()
                 clock.tick(2000)

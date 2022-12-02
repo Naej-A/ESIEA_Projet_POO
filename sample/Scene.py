@@ -35,13 +35,13 @@ class Scene():
         #Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
         counter = 0
         for card in game.tavern.listCardShopHuman.cardList:
-            tempImg = pygame.image.load('ressources/AUBIN_Jean_Pierre_card.png').convert_alpha()
-            buyCard = button.Button("buyCard",  Scene.SCREEN_WIDTH/2 + counter - ( 90 + 1.5 * tempImg.get_width() / 10), 5 * Scene.SCREEN_HEIGHT / 11 - tempImg.get_height() / 10, tempImg, 0.1, card)
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
+            buyCard = button.Button("buyCard", Scene.SCREEN_WIDTH/2 + counter - ( 90 + 1.5 * tempImg.get_width() / 10), 5 * Scene.SCREEN_HEIGHT / 11 - tempImg.get_height() / 10, tempImg, 0.1, card)
             self.listButton.append(buyCard)
             counter += tempImg.get_width() / 10 + 100
         counter = 0
         for card in game.playerHuman.handCardList.cardList:
-            tempImg = pygame.image.load('ressources/CRISON_Franck_card.png').convert_alpha()
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
             sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter, Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
             self.listButton.append(sellCard)
             counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
@@ -58,20 +58,17 @@ class Scene():
         self.listButton.append(next)
         # Ajouté le bouton pour passer à la phase suivant, puis, passer à la phase suivante
         counter = 0
-        for card in game.playerHuman.handCardList:
-            tempImg = pygame.image.load('ressources/AUBIN_Jean_Pierre_card.png').convert_alpha()
-            buyCard = button.Button("buyCard", Scene.SCREEN_WIDTH / 2 + counter - (90 + 1.5 * tempImg.get_width() / 10),
-                                    5 * Scene.SCREEN_HEIGHT / 11 - tempImg.get_height() / 10, tempImg, 0.1, card)
-            self.listButton.append(buyCard)
-            counter += tempImg.get_width() / 10 + 100
-        counter = 0
         for card in game.playerHuman.handCardList.cardList:
-            tempImg = pygame.image.load('ressources/CRISON_Franck_card.png').convert_alpha()
-            sellCard = button.Button("sellCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter,
-                                     Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (
-                                                 Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
-            self.listButton.append(sellCard)
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
+            buyCard = button.Button("playCard", (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + counter, Scene.SCREEN_HEIGHT - (tempImg.get_height() / 10 + (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11), tempImg, 0.1, card)
+            self.listButton.append(buyCard)
             counter += (Scene.SCREEN_WIDTH - tempImg.get_width()) / 11 + tempImg.get_width() / 10
+        counter = 0
+        for card in game.playerHuman.fieldCardList.cardList:
+            tempImg = pygame.image.load('ressources/' + card.imageName).convert_alpha()
+            sellCard = button.Button("takeCardBack", Scene.SCREEN_WIDTH/2 + counter - ( 77.5 + 2 * tempImg.get_width() / 10), Scene.SCREEN_HEIGHT / 2, tempImg, 0.1, card)
+            self.listButton.append(sellCard)
+            counter += tempImg.get_width() / 10 + 50
 
     def drawSceneFight(self, game):
         self.screen.blit(self.backGround, (0, -1))
