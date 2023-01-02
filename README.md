@@ -12,3 +12,7 @@ python3 App.py
 ## UML Diagram of the project
 ![](ressources/Uml_diagram.png)
 
+## For documentation on the project 
+```shell
+python -m pydoc -b 
+```
